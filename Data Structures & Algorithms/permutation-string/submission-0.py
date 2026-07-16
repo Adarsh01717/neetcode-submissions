@@ -1,0 +1,19 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        s1_count = [0] * 26
+        window_count = [0] * 26
+        
+        for i in range(len(s1)):
+            s1_count[ord(s1[i]) - ord('a')] += 1
+        
+        for high in range(len(s2)):
+            window_count[ord(s2[high]) - ord('a')] += 1
+            
+            if high >= len(s1):
+                window_count[ord(s2[high - len(s1)]) - ord('a')] -= 1
+            
+            if high >= len(s1) - 1:
+                if window_count == s1_count:
+                    return True
+        
+        return False
